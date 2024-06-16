@@ -1,3 +1,5 @@
+
+
 .poppins-regular{
     font-family: "Poppins", sans-serif;
     font-weight: 400;
@@ -14,8 +16,17 @@
     font-size: 2rem !important;
 }
 
+.fa-user{
+    color: #fe424d !important;
+    font-size: 2rem !important;
+}
+
 .nav-link{
     color: #222222  !important;
+}
+
+.nav-link:hover{
+    color: #fe424d !important;
 }
 
 .card{
@@ -53,4 +64,71 @@
 
 .newpage{
     padding: 7px;
+}
+
+.navbar{
+    box-shadow: 0px 5px 10px rgba(0,0,0,0.2) !important;
+    border-radius: 20px;
+    margin: 30px; 
+}
+
+.card-img-top{
+    box-shadow: 0px 15px 15px rgba(0,0,0,0.2) !important;
+}
+
+.edit-btn{
+    padding: 3px 8px;
+    border-radius: 8px;
+    color: white;
+    background-color: rgb(89, 183, 223);
+    border: none;
+}
+
+.btnx{
+    background-color:#fe424d;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    margin-top: 20px;
+    margin-left:40%;
+    padding: 5px;
+}
+
+.delete-btn{
+    background-color:#fe424d;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    /* margin-top: 20px;*/
+    padding: 2px;
+
+}
+
+.show-btns{
+    display: flex;
+}
+
+.del-btn{
+    margin-left: 20px;
+
+}
+
+.show-img{
+    height: 30vh;
+    
+}
+
+#show-txt{
+    margin-top: 50px;
+    padding: 20px;
+    font-size: 20px;
+}
+
+.fa-heart{
+    color: red !important;
+    font-size: 4rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }

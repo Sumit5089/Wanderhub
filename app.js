@@ -35,6 +35,11 @@ app.get("/listings", async(req,res) =>{
     res.render("./listings/new");
  });
 
+ //profile route
+ app.get("/profile",(req,res) =>{
+   res.render("./listings/profile");
+});
+
 //show Route
  app.get("/listings/:id" , async(req,res) =>{
     let {id} = req.params;
