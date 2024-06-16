@@ -22,19 +22,7 @@ app.use(express.static(path.join(__dirname,"public")))
 
 
 app.get("/", async(req,res) =>{
-    const newlisting = new Listing({
-        title:"sumit",
-        description:"hii sumit",
-        image:"jsbfbaljszbdlk",
-        price:"1200",
-        loctaion: "pune",
-        country: "india",
-    });
-
-    await newlisting.save()
-    .then((res) => console.log("listing is saved", res))
-    res.send("saved")
-
+   res.render("index")
 });
 
 app.listen(port, () => console.log(`app is runnig at port ${port}`))
