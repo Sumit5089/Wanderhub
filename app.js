@@ -5,6 +5,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 const Listing = require("./models/listings.js");
 const methodoverride = require("method-override")
+const ejsMate = require('ejs-mate');
 
 
 main()
@@ -15,13 +16,13 @@ async function main() {
     await mongoose.connect("mongodb://localhost:27017/newapp");
 }
 
-app.set('view engine', 'ejs')
+app.set('view engine', 'ejs');
 app.set("views", path.join(__dirname,"views"));
-app.use(express.json())
+app.use(express.json());
 app.use(methodoverride("_method"));
-app.use(express.urlencoded({extended: true}))
-
-app.use(express.static(path.join(__dirname,"public")))
+app.use(express.urlencoded({extended: true}));
+app.engine("ejs", ejsMate);
+app.use(express.static(path.join(__dirname,"public")));
 
 
 app.get("/listings", async(req,res) =>{

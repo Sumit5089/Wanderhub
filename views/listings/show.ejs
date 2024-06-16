@@ -1,26 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-<h3>Listings Details:</h3>
-<ul>
-    <li> <%= listing.title %></li>
-    <li> <%= listing.description %></li>
-    <li> &#8377; <%= listing.price %></li>
-    <li> <%= listing.location %></li>
-    <li> <%= listing.country %></li>
-</ul>   
-<br>
-<a href="/listings/<%= listing._id %>/edit">Edit the Listing</a>
-<br>
-<form action="/listings/<%= listing._id %>?_method=DELETE" method="POST">
+<% layout("/layouts/boilerplate") %>
+    <body>
+    <h3>Listings Details:</h3>
+    <ul>
+        <li> <%= listing.title %></li>
+        <li> <%= listing.description %></li>
+        <li> &#8377; <%= listing.price %></li>
+        <li> <%= listing.location %></li>
+        <li> <%= listing.country %></li>
+    </ul>   
     <br>
-    <input type="submit" value="Delete">
-</form>
-</body>
-</html>
+    <a href="/listings/<%= listing._id %>/edit">Edit the Listing</a>
+    <br>
+    <form action="/listings/<%= listing._id %>?_method=DELETE" method="POST">
+        <br>
+        <input type="submit" value="Delete">
+    </form>
+    </body>
+
 
