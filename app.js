@@ -4,6 +4,7 @@ const port = 3000;
 const path = require('path');
 const mongoose = require('mongoose');
 const Listing = require("./models/listings.js");
+const methodoverride = require("method-override")
 
 
 main()
@@ -17,6 +18,7 @@ async function main() {
 app.set('view engine', 'ejs')
 app.set("views", path.join(__dirname,"views"));
 app.use(express.json())
+app.use(methodoverride("_method"));
 app.use(express.urlencoded({extended: true}))
 
 app.use(express.static(path.join(__dirname,"public")))
@@ -27,12 +29,46 @@ app.get("/listings", async(req,res) =>{
     res.render("./listings/index", {allListings});
  });
 
+//new Route
+ app.get("/listings/new",(req,res) =>{
+    res.render("./listings/new");
+ });
+
+//show Route
  app.get("/listings/:id" , async(req,res) =>{
     let {id} = req.params;
     const listing = await Listing.findById(id);
     res.render("./listings/show", {listing});
-
  });
+
+//Edit Route
+app.get("/listings/:id/edit", async(req,res) =>{
+    let {id} = req.params;
+    const listing = await Listing.findById(id);
+    res.render("./listings/edit", {listing});
+ });
+
+//update Route
+app.put("/listings/:id", async(req,res) =>{
+    let {id} = req.params;
+    await Listing.findByIdAndUpdate(id, {...req.body.listing});
+    res.redirect(`/listings/${id}`);
+ });
+
+ app.delete("/listings/:id", async(req,res) =>{
+    let {id} = req.params;
+    await Listing.findByIdAndDelete(id);
+    res.redirect(`/listings`);
+ });
+ 
+ //create Route
+
+ app.post("/listings", async(req,res) =>{
+    const newlisting =  new Listing(req.body.listing);
+    await newlisting.save();
+    res.redirect("/listings")
+ });
+
 
 
 app.listen(port, () => console.log(`app is runnig at port ${port}`))
