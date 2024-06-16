@@ -15,14 +15,24 @@ async function main() {
 }
 
 app.set('view engine', 'ejs')
+app.set("views", path.join(__dirname,"views"));
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 
 app.use(express.static(path.join(__dirname,"public")))
 
 
-app.get("/", async(req,res) =>{
-   res.render("index")
-});
+app.get("/listings", async(req,res) =>{
+    const allListings = await Listing.find({});
+    res.render("./listings/index", {allListings});
+ });
+
+ app.get("/listings/:id" , async(req,res) =>{
+    let {id} = req.params;
+    const listing = await Listing.findById(id);
+    res.render("./listings/show", {listing});
+
+ });
+
 
 app.listen(port, () => console.log(`app is runnig at port ${port}`))
