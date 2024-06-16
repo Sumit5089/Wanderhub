@@ -1,33 +1,37 @@
 <% layout("/layouts/boilerplate") %>
-    <body>
-        <h3 class="poppins-regular">Create a New Listing</h3>
-        <form action="/listings" method="POST">
-            <div>
-                <label for="title" class="form-label">Title</label>
-                <input type="text" name="listing[title]" placeholder="Enter title" class="form-control">
-            </div>
-            <div>
-                <label for="description" class="form-label">Description</label> 
-                <textarea name="listing[description]" class="form-control"></textarea>
-            </div>
+    <div class="newpage row">
+        <div class="col-8 offset-2 poppins-regular">
+            <h3 class="poppins-regular">Create a New Listing</h3>
+            <form action="/listings" method="POST">
+                <div>
+                    <label for="title" class="form-label">Title</label>
+                    <input type="text" name="listing[title]" placeholder="Enter title" class="form-control">
+                </div>
+                <div>
+                    <label for="description" class="form-label">Description</label> 
+                    <textarea name="listing[description]" class="form-control"></textarea>
+                </div>
+                    
+                <div>
+                    <label for="image" class="form-label">Image Link</label>
+                    <input type="text" name="listing[image]" placeholder="Enter URL/Link" class="form-control">
+                </div>
+                 <div class="row">
+                    <div class="col-md-4">
+                        <label for="price" class="form-label">Price</label>
+                        <input type="Number" name="listing[price]" placeholder="Enter price" class="form-control">
+                    </div>
+                    <div class="col-md-8 ">
+                        <label for="location" class="form-label">Location</label>
+                        <input type="text" name="listing[location]" placeholder="Enter location" class="form-control">
+                    </div>
+                 </div>
+                 <div>
+                    <label for="country" class="form-label">Country</label>
+                    <input type="text" name="listing[country]" placeholder="Enter country" class="form-control">
+                </div>
                 
-            <div>
-                <label for="image" class="form-label">Image Link</label>
-                <input type="text" name="listing[image]" placeholder="Enter URL/Link" class="form-control">
-            </div>
-            
-            <div>
-                <label for="price" class="form-label">Price</label>
-                <input type="text" name="listing[price]" placeholder="Enter price" class="form-control">
-            </div>
-            <div>
-                <label for="price" class="form-label">Location</label>
-                <input type="text" name="listing[location]" placeholder="Enter location" class="form-control">
-            </div>
-            <div>
-                <label for="country" class="form-label">Country</label>
-                <input type="text" name="listing[country]" placeholder="Enter country" class="form-control">
-            </div>
-            <input type="submit" value="Submit">
-        </form>
-    </body>
+                <input type="submit" value="Submit" class="btn btn-dark">
+            </form>
+        </div>
+    </div>
