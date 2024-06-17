@@ -21,6 +21,11 @@
     font-size: 2rem !important;
 }
 
+.fa-user:hover{
+    opacity: 0.5;
+    background-color: white;
+}
+
 .nav-link{
     color: #222222  !important;
 }
@@ -170,4 +175,15 @@
 .error-img img{
     height: 400px;
     margin-left: 300px;
+}
+
+.fa-right-from-bracket{
+    color: #fe424d;
+    margin-left: 12px;
+    font-size: 1.5rem;
+}
+
+.fa-right-from-bracket:hover{
+    opacity: 0.5;
+    background-color: white;
 }
