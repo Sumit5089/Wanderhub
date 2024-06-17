@@ -75,6 +75,9 @@ app.put("/listings/:id", async(req,res) =>{
     res.redirect("/listings")
  });
 
-
+app.use((req,res) =>{
+   res.status(404)
+   res.render("./listings/error")
+})
 
 app.listen(port, () => console.log(`app is runnig at port ${port}`))

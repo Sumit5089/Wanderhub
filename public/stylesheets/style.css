@@ -166,3 +166,8 @@
 .f-info-socials i:hover {
     color: #fe424d;
 }
+
+.error-img img{
+    height: 400px;
+    margin-left: 300px;
+}
