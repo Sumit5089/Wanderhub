@@ -10,6 +10,8 @@ const ejsMate = require('ejs-mate');
 const cookieParser = require('cookie-parser')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken');
+const wrapAsync = require('./utils/wrapasync.js')
+const ExpressError = require('./utils/expresserror.js')
 
 
 
@@ -31,10 +33,10 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname,"public")));
 
 
-app.get("/listings", async(req,res) =>{
+app.get("/listings", wrapAsync(async(req,res) =>{
     const allListings = await Listing.find({});
     res.render("./listings/index", {allListings});
- });
+ }));
 
 //logut
 app.get("/logout",(req,res) =>{
@@ -62,42 +64,49 @@ app.get("/logout",(req,res) =>{
 });
 
 //show Route
- app.get("/listings/:id" , async(req,res) =>{
+ app.get("/listings/:id" , wrapAsync(async(req,res) =>{
     let {id} = req.params;
     const listing = await Listing.findById(id);
     res.render("./listings/show", {listing});
- });
+ }));
 
 //Edit Route
-app.get("/listings/:id/edit", async(req,res) =>{
+app.get("/listings/:id/edit", wrapAsync(async(req,res) =>{
     let {id} = req.params;
     const listing = await Listing.findById(id);
     res.render("./listings/edit", {listing});
- });
+ }));
 
 //update Route
-app.put("/listings/:id", async(req,res) =>{
+app.put("/listings/:id", wrapAsync(async(req,res) =>{
+   if(!req.body.listing){
+      throw new ExpressError(400,"Send validate for listing")
+   }
     let {id} = req.params;
     await Listing.findByIdAndUpdate(id, {...req.body.listing});
     res.redirect(`/listings/${id}`);
- });
+ }));
 
- app.delete("/listings/:id", async(req,res) =>{
+ //delete Route
+ app.delete("/listings/:id",wrapAsync(async(req,res) =>{
     let {id} = req.params;
     await Listing.findByIdAndDelete(id);
     res.redirect(`/listings`);
- });
+ }));
  
  //create Route
 
- app.post("/listings", async(req,res) =>{
+ app.post("/listings", wrapAsync (async(req,res,next) =>{
+   if(!req.body.listing){
+      throw new ExpressError(400,"Send validate for listing")
+   }
     const newlisting =  new Listing(req.body.listing);
     await newlisting.save();
     res.redirect("/listings")
- });
+ }));
 
 // login check
- app.post("/login", async(req,res) =>{
+ app.post("/login", wrapAsync(async(req,res) =>{
    let user = await usermodel.findOne({email: req.body.email})
    if(!user) return res.send("user not found")
 
@@ -109,12 +118,12 @@ app.put("/listings/:id", async(req,res) =>{
    }
    else res.send("something went wrong")
    })
-   });
+   }));
  
  
 
  //create register
- app.post("/register", async (req, res) => {
+ app.post("/register", wrapAsync(async (req, res) => {
    try {
      let { username, email, password, confirm } = req.body;
  
@@ -138,12 +147,21 @@ app.put("/listings/:id", async(req,res) =>{
      console.error(error);
      res.status(500).send("Internal Server Error");
    }
+ }));
+
+
+ app.all("*", (req,res,next) =>{
+   next(new ExpressError(404, "page not found"));
  });
- 
 
 app.use((req,res) =>{
    res.status(404)
    res.render("./listings/error")
+})
+
+app.use((err,req,res,next) =>{
+   let {statuscode=500, message="Something Went wrong"} = err;
+   res.status(statuscode).send(message)
 })
 
 app.listen(port, () => console.log(`app is runnig at port ${port}`))
