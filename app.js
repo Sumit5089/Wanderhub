@@ -12,6 +12,7 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken');
 const wrapAsync = require('./utils/wrapasync.js')
 const ExpressError = require('./utils/expresserror.js')
+const { listingSchema} = require('./schema.js');
 
 
 
@@ -32,6 +33,18 @@ app.engine("ejs", ejsMate);
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname,"public")));
 
+
+
+const validateListing = (req, res, next) => {
+   let {error} = listingSchema.validate(req.body);
+
+   if(error) {
+      let errMsg = error.details.map((el) => el.message).join(",");
+      throw new ExpressError(400, errMsg);
+   } else{
+      next();
+   }
+}
 
 app.get("/listings", wrapAsync(async(req,res) =>{
     const allListings = await Listing.find({});
@@ -78,10 +91,7 @@ app.get("/listings/:id/edit", wrapAsync(async(req,res) =>{
  }));
 
 //update Route
-app.put("/listings/:id", wrapAsync(async(req,res) =>{
-   if(!req.body.listing){
-      throw new ExpressError(400,"Send validate for listing")
-   }
+app.put("/listings/:id", validateListing, wrapAsync(async(req,res) =>{
     let {id} = req.params;
     await Listing.findByIdAndUpdate(id, {...req.body.listing});
     res.redirect(`/listings/${id}`);
@@ -96,9 +106,10 @@ app.put("/listings/:id", wrapAsync(async(req,res) =>{
  
  //create Route
 
- app.post("/listings", wrapAsync (async(req,res,next) =>{
-   if(!req.body.listing){
-      throw new ExpressError(400,"Send validate for listing")
+ app.post("/listings",validateListing, wrapAsync (async(req,res,next) =>{
+   let result = listingSchema.validate(req.body);
+   if(result.error) {
+      throw new ExpressError(400, result.error)
    }
     const newlisting =  new Listing(req.body.listing);
     await newlisting.save();
@@ -161,7 +172,7 @@ app.use((req,res) =>{
 
 app.use((err,req,res,next) =>{
    let {statuscode=500, message="Something Went wrong"} = err;
-   res.status(statuscode).send(message)
+   res.render('customerror.ejs', {err})// res.status(statuscode).send(message)
 })
 
 app.listen(port, () => console.log(`app is runnig at port ${port}`))
