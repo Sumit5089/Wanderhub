@@ -11,6 +11,8 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken');
 const wrapAsync = require('./utils/wrapasync.js')
 const ExpressError = require('./utils/expresserror.js')
+const session = require('express-session')
+
 
 
 
@@ -37,6 +39,13 @@ app.use(express.static(path.join(__dirname,"public")));
 
 
 
+const sessionOptions = {
+  secret: "mysupersecretcode",
+  resave: false,
+  saveUninitialized: true
+};
+
+app.use(session(sessionOptions))
 app.use("/listings", listings)
 app.use("/listings/:id/reviews", reviews )
 
