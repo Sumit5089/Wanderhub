@@ -3,7 +3,6 @@ const app = express();
 const port = 3000;
 const path = require('path');
 const mongoose = require('mongoose');
-const Listing = require("./models/listings.js");
 const usermodel = require("./models/user.js");
 const methodoverride = require("method-override")
 const ejsMate = require('ejs-mate');
@@ -12,9 +11,11 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken');
 const wrapAsync = require('./utils/wrapasync.js')
 const ExpressError = require('./utils/expresserror.js')
-const { listingSchema, reviewSchema} = require('./schema.js');
-const Review  = require('./models/review.js')
 
+
+
+const listings = require('./routes/listing.js');
+const reviews = require('./routes/review.js');
 
 
 main()
@@ -36,35 +37,9 @@ app.use(express.static(path.join(__dirname,"public")));
 
 
 
-const validateListing = (req, res, next) => {
-   let {error} = listingSchema.validate(req.body);
+app.use("/listings", listings)
+app.use("/listings/:id/reviews", reviews )
 
-   if(error) {
-      let errMsg = error.details.map((el) => el.message).join(",");
-      throw new ExpressError(400, errMsg);
-   } else{
-      next();
-   }
-}
-
-const validateReview = (req, res, next) => {
-   let {error} = reviewSchema.validate(req.body);
-
-   if(error) {
-      let errMsg = error.details.map((el) => el.message).join(",");
-      throw new ExpressError(400, errMsg);
-   } else{
-      next();
-   }
-};
-
-
-
-
-app.get("/listings", wrapAsync(async(req,res) =>{
-    const allListings = await Listing.find({});
-    res.render("./listings/index", {allListings});
- }));
 
 //logut
 app.get("/logout",(req,res) =>{
@@ -82,54 +57,14 @@ app.get("/logout",(req,res) =>{
    res.render("layouts/login.ejs");
 });
 //new Route
- app.get("/listings/new",(req,res) =>{
-    res.render("./listings/new");
- });
-
+ 
  //profile route
  app.get("/profile",(req,res) =>{
    res.render("./listings/profile");
 });
 
-//show Route
- app.get("/listings/:id" , wrapAsync(async(req,res) =>{
-    let {id} = req.params;
-    const listing = await Listing.findById(id).populate("reviews");
-    res.render("./listings/show", {listing});
- }));
 
-//Edit Route
-app.get("/listings/:id/edit", wrapAsync(async(req,res) =>{
-    let {id} = req.params;
-    const listing = await Listing.findById(id);
-    res.render("./listings/edit", {listing});
- }));
-
-//update Route
-app.put("/listings/:id", validateListing, wrapAsync(async(req,res) =>{
-    let {id} = req.params;
-    updatedlisting = await Listing.findByIdAndUpdate(id, {...req.body.listing});
-    res.redirect(`/listings/${id}`);
- }));
-
- //delete Route
- app.delete("/listings/:id",wrapAsync(async(req,res) =>{
-    let {id} = req.params;
-     deletedlisting = await Listing.findByIdAndDelete(id);
-    res.redirect(`/listings`);
- }));
  
- //create Route
-
- app.post("/listings",validateListing, wrapAsync (async(req,res,next) =>{
-   let result = listingSchema.validate(req.body);
-   if(result.error) {
-      throw new ExpressError(400, result.error)
-   }
-    const newlisting =  new Listing(req.body.listing);
-    await newlisting.save();
-    res.redirect("/listings")
- }));
 
 // login check
  app.post("/login", wrapAsync(async(req,res) =>{
@@ -175,29 +110,7 @@ app.put("/listings/:id", validateListing, wrapAsync(async(req,res) =>{
    }
  }));
 
- //post Reviews
 
-app.post("/listings/:id/reviews",validateReview,wrapAsync(async(req,res) => {
-   let listing = await Listing.findById(req.params.id);
-   let newReview = new Review(req.body.review);
-
-   listing.reviews.push(newReview);
-
-   await newReview.save();
-   await listing.save();
-
-   res.redirect(`/listings/${listing._id}`)
-
-}));
-
-//review delete
-
-app.delete("/listings/:id/reviews/:reviewid", wrapAsync(async (req,res) => {
-   let {id, reviewid} = req.params;
-   updatereview = await Listing.findByIdAndUpdate(id, {$pull: {reviews:reviewid}});
-   deletereview = await Review.findByIdAndDelete(reviewid);
-   res.redirect(`/listings/${id}`);
-}))
 
 
  app.all("*", (req,res,next) =>{
