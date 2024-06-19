@@ -12,7 +12,7 @@ const jwt = require('jsonwebtoken');
 const wrapAsync = require('./utils/wrapasync.js')
 const ExpressError = require('./utils/expresserror.js')
 const session = require('express-session')
-
+const flash = require('connect-flash');
 
 
 
@@ -42,10 +42,23 @@ app.use(express.static(path.join(__dirname,"public")));
 const sessionOptions = {
   secret: "mysupersecretcode",
   resave: false,
-  saveUninitialized: true
+  saveUninitialized: true,
+  cookie:{
+    expires:Date.now() + 7 * 24 * 60 * 60 * 1000,
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+    httpOnly: true,
+  },
 };
 
-app.use(session(sessionOptions))
+app.use(session(sessionOptions));
+app.use(flash());
+
+app.use((req,res,next) =>{
+  res.locals.success = req.flash("success");
+  res.locals.error = req.flash("error");
+  next();
+})
+
 app.use("/listings", listings)
 app.use("/listings/:id/reviews", reviews )
 
@@ -84,6 +97,7 @@ app.get("/logout",(req,res) =>{
    if(result){
    let token = jwt.sign({email: user.email}, "sumit");
    res.cookie("token", token)
+   req.flash("success", "Logined Successfully!!")
    res.redirect("/listings");
    }
    else res.send("something went wrong")
@@ -112,6 +126,7 @@ app.get("/logout",(req,res) =>{
  
      let token = jwt.sign({ email }, "sumit");
      res.cookie("token", token);
+     req.flash("success", "Registered Successfully!")
      res.redirect("/login");
    } catch (error) {
      console.error(error);
