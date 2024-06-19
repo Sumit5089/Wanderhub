@@ -187,3 +187,7 @@
     opacity: 0.5;
     background-color: white;
 }
+
+.rate{
+    max-width: 50% !important;
+}
