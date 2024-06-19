@@ -12,7 +12,8 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken');
 const wrapAsync = require('./utils/wrapasync.js')
 const ExpressError = require('./utils/expresserror.js')
-const { listingSchema} = require('./schema.js');
+const { listingSchema, reviewSchema} = require('./schema.js');
+const Review  = require('./models/review.js')
 
 
 
@@ -45,6 +46,20 @@ const validateListing = (req, res, next) => {
       next();
    }
 }
+
+const validateReview = (req, res, next) => {
+   let {error} = reviewSchema.validate(req.body);
+
+   if(error) {
+      let errMsg = error.details.map((el) => el.message).join(",");
+      throw new ExpressError(400, errMsg);
+   } else{
+      next();
+   }
+};
+
+
+
 
 app.get("/listings", wrapAsync(async(req,res) =>{
     const allListings = await Listing.find({});
@@ -79,7 +94,7 @@ app.get("/logout",(req,res) =>{
 //show Route
  app.get("/listings/:id" , wrapAsync(async(req,res) =>{
     let {id} = req.params;
-    const listing = await Listing.findById(id);
+    const listing = await Listing.findById(id).populate("reviews");
     res.render("./listings/show", {listing});
  }));
 
@@ -93,14 +108,14 @@ app.get("/listings/:id/edit", wrapAsync(async(req,res) =>{
 //update Route
 app.put("/listings/:id", validateListing, wrapAsync(async(req,res) =>{
     let {id} = req.params;
-    await Listing.findByIdAndUpdate(id, {...req.body.listing});
+    updatedlisting = await Listing.findByIdAndUpdate(id, {...req.body.listing});
     res.redirect(`/listings/${id}`);
  }));
 
  //delete Route
  app.delete("/listings/:id",wrapAsync(async(req,res) =>{
     let {id} = req.params;
-    await Listing.findByIdAndDelete(id);
+     deletedlisting = await Listing.findByIdAndDelete(id);
     res.redirect(`/listings`);
  }));
  
@@ -159,6 +174,30 @@ app.put("/listings/:id", validateListing, wrapAsync(async(req,res) =>{
      res.status(500).send("Internal Server Error");
    }
  }));
+
+ //post Reviews
+
+app.post("/listings/:id/reviews",validateReview,wrapAsync(async(req,res) => {
+   let listing = await Listing.findById(req.params.id);
+   let newReview = new Review(req.body.review);
+
+   listing.reviews.push(newReview);
+
+   await newReview.save();
+   await listing.save();
+
+   res.redirect(`/listings/${listing._id}`)
+
+}));
+
+//review delete
+
+app.delete("/listings/:id/reviews/:reviewid", wrapAsync(async (req,res) => {
+   let {id, reviewid} = req.params;
+   updatereview = await Listing.findByIdAndUpdate(id, {$pull: {reviews:reviewid}});
+   deletereview = await Review.findByIdAndDelete(reviewid);
+   res.redirect(`/listings/${id}`);
+}))
 
 
  app.all("*", (req,res,next) =>{

@@ -34,11 +34,6 @@
     color: #fe424d !important;
 }
 
-.card{
-    border: none !important;
-    margin-bottom: 2rem !important;
-    
-}
 
 .card-img-top{
     border-radius: 1rem !important;
@@ -95,7 +90,7 @@
     border-radius: 8px;
     color: white;
     margin-top: 20px;
-    margin-left:40%;
+    margin-left:45%;
     padding: 5px;
 }
 
@@ -188,6 +183,40 @@
     background-color: white;
 }
 
+
+.Review{
+    margin-top: 10px !important;
+}
+
+.listing-card {
+    border: none !important;
+    margin-bottom: 2rem;
+}
+
 .rate{
-    max-width: 50% !important;
+    margin-left: 50px;
+}
+
+.fa-trash{
+    color: #fe424d;
+    font-size: 1.5rem;
+    padding: 5px;
+
+}
+
+#review-box{
+    border-radius: 30px;
+    border-color: #fe424d;
+    padding-inline-start: 35px;
+}
+
+
+#review-box{
+    padding: 25px;
+}
+
+.btnxx{
+    border: none;
+    background-color: white;
+    padding-left: 40%;
 }
