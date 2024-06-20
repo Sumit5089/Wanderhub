@@ -90,18 +90,22 @@ app.get("/logout",(req,res) =>{
 
 // login check
  app.post("/login", wrapAsync(async(req,res) =>{
-   let user = await usermodel.findOne({email: req.body.email})
-   if(!user) return res.send("user not found")
+   try{
+    let user = await usermodel.findOne({email: req.body.email});
 
    bcrypt.compare(req.body.password, user.password, function (err, result){
    if(result){
    let token = jwt.sign({email: user.email}, "sumit");
    res.cookie("token", token)
-   req.flash("success", "Logined Successfully!!")
+   req.flash("success", `hii ${user.username} you logined succesfully!`)
    res.redirect("/listings");
    }
-   else res.send("something went wrong")
    })
+   }
+   catch (e){
+    req.flash("error", "Username or Paasword is incorrect!")
+    res.redirect("/login")
+   }
    }));
  
  
@@ -112,7 +116,7 @@ app.get("/logout",(req,res) =>{
      let { username, email, password, confirm } = req.body;
  
      if (password !== confirm) {
-       return res.send("Passwords do not match");
+      req.flash("error","Please confirm password!" )
      }
  
      const salt = await bcrypt.genSalt(10);
