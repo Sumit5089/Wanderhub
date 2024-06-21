@@ -1,7 +1,7 @@
 const Listing = require('./models/listings')
 const ExpressError = require('./utils/expresserror.js')
 const {listingSchema,reviewSchema} = require('./schema.js');
-
+const Review  = require('./models/review.js')
 
 
 module.exports.validateReview = (req, res, next) => {
@@ -49,6 +49,17 @@ module.exports.isOwner = async(req,res,next) =>{
     let listing = await Listing.findById(id);
     if(!listing.owner.equals(res.locals.currUser._id)){
       req.flash("error", "You are not the owner of the listing");
+      return res.redirect(`/listings/${id}`);
+    }
+    next();
+};
+
+
+module.exports.isAuthor = async(req,res,next) =>{
+    let {id, reviewid} = req.params;
+    let review  = await Review.findById(reviewid);
+    if(!review.author.equals(res.locals.currUser._id)){
+      req.flash("error", "You are noy the author of this listing");
       return res.redirect(`/listings/${id}`);
     }
     next();
