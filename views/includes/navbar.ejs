@@ -10,11 +10,12 @@
           <a class="nav-link poppins-regular" href="/listings">All Listings</a>
           <a class="nav-link poppins-regular" href="/listings/new">Add New Listing</a>
       </div>
-      <div class=" profile ms-auto m-2">
-        <a class="nav-link poppins-regular" href="/profile"><i class="fa-solid fa-user"></i></a>
-      </div>
-      <a class="nav-link" href="/logout">
-        <i class="fa-solid fa-right-from-bracket"></i>
-     </a>
+      <div class="navbar-nav ms-auto">
+        <% if(!currUser) { %>
+        <a class="nav-link poppins-regular" aria-current="page" href="/signup">Signup</a>
+        <a class="nav-link poppins-regular" href="/login">Login</a>
+        <% } %> <% if(currUser) { %>
+        <a class="nav-link poppins-regular" href="/logout">Logut</a>
+        <% } %>
     </div>
   </nav>

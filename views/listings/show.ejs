@@ -1,12 +1,12 @@
 <% layout("/layouts/boilerplate") %>
 <div class="row">
     <div class="col">
-    <h3>Listings Details:</h3>
+    <h3><%= listing.title %></h3>
 
         <div class="card mt-3 listing-card" style="width: 25rem;">
             <img src="<%= listing.image%>" class="card-img-top" alt="image">
             <div class="card-body mt-2">
-                <p class="card-text text-center"><b><%= listing.title %></b></p>
+                <p class="card-text mx-2"><b>Owned By:-</b><i>  <%= listing.owner.username %></i></p>
             </div>
         </div>
     </div>
@@ -32,7 +32,6 @@
                     </form>
                 </div>
             </div>
-
     </div>
     <div class>
         <hr>
