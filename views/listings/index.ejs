@@ -1,8 +1,67 @@
 <% layout("/layouts/boilerplate") %>
 
+<style>
+    .filters {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .filter{
+        text-align: center;
+        margin-right: 2rem;
+    }
+    .filter:hover{
+        color: #fe424d;
+        cursor: pointer;
+
+    }
+    .filter p{
+        font-size: 0.8rem;
+    }
+
+</style>
 <br>
-<h3 class="poppins-regular">All Listings</h3>
-<div class="row row-cols-lg-4 row-cols-md-3 row-cols-sm-1">
+<div class="filters ">
+    <div class="filter">
+        <div><i class="fa-solid fa-fire"></i></div>
+        <p>Trending</p>
+    </div>
+    <div class="filter">
+        <div><i class="fa-solid fa-bed"></i></div>
+        <p>Rooms</p>
+    </div>
+    <div class="filter">
+        <div><i class="fa-solid fa-mountain-city"></i></div>
+        <p>Iconic cities</p>
+    </div>
+    <div class="filter">
+        <div><i class="fa-brands fa-fort-awesome"></i></div>
+        <p>Castles</p>
+    </div>
+    <div class="filter">
+        <div><i class="fa-solid fa-mountain-sun"></i></div>
+        <p>Mountains</p>
+    </div>
+    <div class="filter">
+        <div><i class="fa-regular fa-snowflake"></i></div>
+        <p>Artic</p>
+    </div>
+    <div class="filter">
+        <div><i class="fa-solid fa-cow"></i></div>
+        <p>Farms</p>
+    </div>
+    <div class="filter">
+        <div><i class="fa-solid fa-tent"></i></div>
+        <p>Camping</p>
+    </div>
+    <div class="tax-toggle">
+        <div class="form-check-reverse form-switch">
+            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+            <label class="form-check-label" for="flexSwitchCheckDefault">Display Taxes</label>
+          </div>
+    </div>
+</div>
+<hr>
+<div class="row row-cols-lg-4 row-cols-md-3 row-cols-sm-1 mt-3">
     <% for(let listing of allListings) { %>
         <a href="/listings/<%= listing._id %>" class="listing-link">
             <div class="card cols listing-card">
