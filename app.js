@@ -1,15 +1,14 @@
+if(process.env.NODE_ENV != "production") {
+require('dotenv').config();
+}
 const express = require('express');
 const app = express();
 const port = 3000;
 const path = require('path');
 const mongoose = require('mongoose');
-const usermodel = require("./models/user.js");
 const methodoverride = require("method-override")
 const ejsMate = require('ejs-mate');
 const cookieParser = require('cookie-parser')
-// const bcrypt = require('bcryptjs')
-// const jwt = require('jsonwebtoken');
-const wrapAsync = require('./utils/wrapasync.js')
 const ExpressError = require('./utils/expresserror.js')
 const session = require('express-session')
 const flash = require('connect-flash');
@@ -41,8 +40,6 @@ app.use(express.urlencoded({extended: true}));
 app.engine("ejs", ejsMate);
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname,"public")));
-
-
 
 const sessionOptions = {
   secret: "mysupersecretcode",

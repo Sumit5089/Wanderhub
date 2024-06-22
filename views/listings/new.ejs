@@ -2,7 +2,7 @@
     <div class="newpage row">
         <div class="col-8 offset-2 poppins-regular">
             <h3 class="poppins-regular">Create a New Listing</h3>
-            <form action="/listings" method="POST"  class="needs-validation" novalidate>
+            <form action="/listings" method="POST"  class="needs-validation" novalidate  enctype="multipart/form-data">
                 <div>
                     <label for="title" class="form-label">Title</label>
                     <input type="text" name="listing[title]" placeholder="Enter title" class="form-control" required>
@@ -13,10 +13,9 @@
                     <textarea name="listing[description]" class="form-control" required></textarea>
                     <div class="invalid-feedback">required</div>
                 </div>
-                    
                 <div class="mb-2">
-                    <label for="image" class="form-label">Image Link</label>
-                    <input type="text" name="listing[image]" placeholder="Enter URL/Link" class="form-control" required>
+                    <label for="image" class="form-label"> Upload Image</label>
+                    <input type="file" name="listing[image]"  class="form-control" required>
                     <div class="invalid-feedback">required</div>
                 </div>
                  <div class="row">
