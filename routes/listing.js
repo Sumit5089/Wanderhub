@@ -22,7 +22,7 @@ router.get("/:id" , wrapAsync(lisitngController.showListing));
 
 router.get("/:id/edit",isLoggedIn,isOwner,wrapAsync(lisitngController.editListing));
 
-router.put("/:id",isLoggedIn,isOwner,validateListing, wrapAsync(lisitngController.updateListing));
+router.put("/:id",isLoggedIn,isOwner,upload.single('listing[image]'),validateListing, wrapAsync(lisitngController.updateListing));
 
 router.delete("/:id",isLoggedIn,isOwner,wrapAsync(lisitngController.destroyListing));
 
