@@ -17,19 +17,19 @@ const LocalStrategy = require('passport-local');
 const User = require('./models/user.js');
 
 
-
-
 const listingRouter = require('./routes/listing.js');
 const reviewRouter = require('./routes/review.js');
 const userRouter = require('./routes/user.js');
 
+// "mongodb://localhost:27017/newapp"
+const DB_URL = process.env.ATLASDB_URL;
 
 main()
 .then(() => console.log("connection sucssefull"))
 .catch((err) => console.log(err))
 
 async function main() { 
-    await mongoose.connect("mongodb://localhost:27017/newapp");
+    await mongoose.connect(DB_URL);
 }
 
 app.set('view engine', 'ejs');
