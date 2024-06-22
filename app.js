@@ -11,6 +11,7 @@ const ejsMate = require('ejs-mate');
 const cookieParser = require('cookie-parser')
 const ExpressError = require('./utils/expresserror.js')
 const session = require('express-session')
+// const MongoStore = require('connect-mongo');
 const flash = require('connect-flash');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
@@ -20,6 +21,7 @@ const User = require('./models/user.js');
 const listingRouter = require('./routes/listing.js');
 const reviewRouter = require('./routes/review.js');
 const userRouter = require('./routes/user.js');
+// const MongoStore = require('connect-mongo');
 
 // "mongodb://localhost:27017/newapp"
 const DB_URL = process.env.ATLASDB_URL;
@@ -41,7 +43,21 @@ app.engine("ejs", ejsMate);
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname,"public")));
 
+
+// const store = MongoStore.create({
+//   mongoUrl: DB_URL,
+//   crypto: {
+//     secret: "mysupersecretcode"
+//   },
+//   touchAfter: 24 * 3600,
+// });
+
+// store.on("error", () => {
+//    console.log("ERROR in MONGO SESSION STORE", err)
+// })
+
 const sessionOptions = {
+  // store,
   secret: "mysupersecretcode",
   resave: false,
   saveUninitialized: true,
