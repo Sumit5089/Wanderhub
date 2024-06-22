@@ -1,37 +1,4 @@
 <% layout("/layouts/boilerplate") %>
-
-<style>
-    .filters {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-    }
-    .filter{
-        text-align: center;
-        margin-right: 2.5rem;
-    }
-    .filter:hover{
-        color: #fe424d;
-        cursor: pointer;
-
-    }
-    .filter p{
-        font-size: 0.8rem;
-    }
-    .tax-info {
-        display:none;
-    }
-    .tax-toggle {
-        border: 1px solid black;
-        border-radius: 1rem;
-        height: 3.25rem;
-        padding: 1rem;
-        margin-left: 2rem;
-        display: flex;
-        align-items: center;
-    }
-
-</style>
 <br>
 <div class="filters ">
     <div class="filter">
@@ -89,7 +56,7 @@
                 <img src="<%= listing.image.url %>" class="card-img-top" alt="listing_image" style="height:18rem">
                 <div class="card-img-overlay"><i class="fa-solid fa-heart"></i></div>
                 <div class="card-body">
-                <h5 class="card-title poppins-regular"><b><%= listing.title %></b></h5>
+                <h5 class="card-title poppins-regular mt-2"><b><%= listing.title %></b></h5>
                 <p class="card-text poppins-regular">
                     &#8377; <%= listing.price.toLocaleString("en-IN") %> / night
                     <i class="tax-info"> &nbsp; &nbsp;+18% GST</i>

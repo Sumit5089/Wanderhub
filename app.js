@@ -23,15 +23,15 @@ const reviewRouter = require('./routes/review.js');
 const userRouter = require('./routes/user.js');
 // const MongoStore = require('connect-mongo');
 
-// "mongodb://localhost:27017/newapp"
-const DB_URL = process.env.ATLASDB_URL;
+
+// const DB_URL = process.env.ATLASDB_URL;
 
 main()
 .then(() => console.log("connection sucssefull"))
 .catch((err) => console.log(err))
 
 async function main() { 
-    await mongoose.connect(DB_URL);
+    await mongoose.connect("mongodb://localhost:27017/newapp");
 }
 
 app.set('view engine', 'ejs');
