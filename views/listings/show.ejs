@@ -14,11 +14,11 @@
 
     <div class="col" id="show-txt">
             <ul>
-                <p><i class="fa-solid fa-umbrella-beach" style="color: red;"></i> <%= listing.title %></p> 
-                <p><i class="fa-solid fa-angles-right" style="color: red;"></i> <%= listing.description %></p>
-                <p><i class="fa-solid fa-indian-rupee-sign"  style="color: red;"></i> <%= listing.price %></p> 
-                <p> <i class="fa-solid fa-location-dot" style="color: red;"></i> <%= listing.location %><p>
-                <p><i class="fa-solid fa-earth-americas" style="color: red;"></i> <%= listing.country %></p>
+                <p><i class="fa-solid fa-mountain-sun" style="color: red;"></i>&nbsp; <%= listing.title %></p> 
+                <p><i class="fa-solid fa-angles-right" style="color: red;"></i> &nbsp;<%= listing.description %></p>
+                <p><i class="fa-solid fa-indian-rupee-sign"  style="color: red;"></i> &nbsp;<%= listing.price %></p> 
+                <p> <i class="fa-solid fa-location-dot" style="color: red;"></i> &nbsp;<%= listing.location %><p>
+                <p><i class="fa-solid fa-earth-americas" style="color: red;"></i>&nbsp; <%= listing.country %></p>
             </ul>   
             <br>
 
@@ -70,12 +70,12 @@
         <% } %>
         <hr>
         <div class="rate">
-            <h5 class="mb-4"><b>All Reviews</b></h5>
+            <h5 class="mb-4"><b>All Reviews  &nbsp;<i class="fa-regular fa-comment fa-1x"></i></b></h5>
        <div class="row" >
             <% for(review of listing.reviews)  { %>
                 <div class="card col-3 ms-3 mb-3" id="review-box">
-                    <div class="card-body " id="review-mbox">
-                        <h5 class="card-title">@<%= review.author.username %></h5>
+                    <div class="card-body m-2" id="review-mbox">
+                        <h5 class="card-title"><i class="fa-solid fa-user"></i><b> <%= review.author.username %></b></h5>
                         <p class="starability-result card-text" data-rating="<%= review.rating  %>"></p>
                         <p class="card-text"><%= review.comment %></p>
                          <form action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE" method="post">
