@@ -250,6 +250,7 @@
 .filter:hover{
     color: #fe424d;
     cursor: pointer;
+    transform: translate(-0px, -3px);
 
 }
 .filter p{
