@@ -1,4 +1,5 @@
 <% layout("/layouts/boilerplate") %>
+
 <div class="row">
     <div class="col">
     <h3><%= listing.title %></h3>
@@ -88,6 +89,17 @@
         </div>
     </div>
 </div>
-   
+<div id="map"></div>
+<style>
+    
+    #map { height: 400px; width: 800px; margin-top: 40px; margin-left:15%;}
+</style>
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+    var map = L.map('map').setView([51.505, -0.09], 13);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+</script> 
 
 
