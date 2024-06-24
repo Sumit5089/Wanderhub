@@ -9,7 +9,6 @@
   "author": "sumit",
   "license": "ISC",
   "dependencies": {
-    "@maptiler/sdk": "^2.1.0",
     "bcryptjs": "^2.4.3",
     "cloudinary": "^1.21.0",
     "connect-flash": "^0.1.1",
@@ -22,7 +21,6 @@
     "express-session": "^1.18.0",
     "joi": "^17.13.2",
     "jsonwebtoken": "^9.0.2",
-    "maplibre-gl": "^4.4.1",
     "method-override": "^3.0.0",
     "mongoose": "^8.4.1",
     "multer": "^1.4.5-lts.1",

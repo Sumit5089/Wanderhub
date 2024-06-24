@@ -89,9 +89,11 @@
         </div>
     </div>
 </div>
+<div class="mt-5">
+<h3 class="m-8 text-center" ><b>Where you'll be</b></h3>
 <div id="map"></div>
 <style>
-    
+
     #map { height: 400px; width: 800px; margin-top: 40px; margin-left:15%;}
 </style>
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
@@ -101,7 +103,14 @@
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
 
-//geocoding
+// custom icon using font Awesome
+    var compassIcon = L.divIcon({
+        html: '<i class="fa-solid fa-location-dot fa-2x" style="color: red;"></i>',
+        iconSize: [20, 50],
+        className: 'custom-icon'
+    });
+
+//geocoding for adding city name
     function geocodeCity(cityName) {
         var url = 'https://nominatim.openstreetmap.org/search?format=json&limit=1&q=' + encodeURIComponent(cityName);
         fetch(url)
@@ -110,7 +119,8 @@
                 if (data.length > 0) {
                     var lat = data[0].lat;
                     var lon = data[0].lon;
-                    var marker = L.marker([lat, lon]).addTo(map);
+                    var marker = L.marker([lat, lon], { icon: compassIcon }).addTo(map);
+                    marker.bindPopup("<b>" + cityName + "</b>", { offset: [0, -10] }).openPopup();
                     map.setView([lat, lon], 13);
                 } else {
                     alert('City not found');
@@ -121,4 +131,4 @@
      geocodeCity('<%= listing.location %>');
 </script> 
 
-
+</div>
