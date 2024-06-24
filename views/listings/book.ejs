@@ -1,0 +1,28 @@
+<% layout("/layouts/boilerplate") %>
+
+        <h3>Booking</h3>
+        <form id="booking-form" action="/process_booking" method="POST">
+            <input type="hidden" name="listing_id" value="<%= listing._id %>">
+            <div class="form-group m-3">
+                <label for="booking-date">Booking Date:</label>
+                <input type="date" id="booking-date" name="booking_date" class="form-control" required>
+            </div>
+            <div class="form-group m-3">
+                <label for="booking-email">Email Address:</label>
+                <input type="email" id="booking-email" name="email" class="form-control" required>
+            </div>
+            <div class="form-group m-3">
+                <label for="booking-amount">Booking Amount:</label>
+                <input type="number" id="booking-amount" name="amount" class="form-control" value="<%= listing.price %>" readonly>
+            </div>
+            <button type="submit" id="book-btn" class="btn btn-primary mt-3 mx-5">Book Now</button>
+        </form>
+        
+        <script>
+            document.getElementById('booking-form').addEventListener('submit', function(event) {
+                event.preventDefault();
+                // Simulate payment success message
+                alert('Mock payment successful! No real money has been charged.');
+                this.submit(); // Submit the form to server for processing
+            })
+        </script>

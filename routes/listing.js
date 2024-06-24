@@ -18,13 +18,15 @@ router.get("/new",isLoggedIn, lisitngController.renderNewForm);
 
 router.get("/:id" , wrapAsync(lisitngController.showListing));
 
- router.post("/",isLoggedIn, upload.single('listing[image]'), validateListing, wrapAsync(lisitngController.createListing));
+router.post("/",isLoggedIn, upload.single('listing[image]'), validateListing, wrapAsync(lisitngController.createListing));
 
 router.get("/:id/edit",isLoggedIn,isOwner,wrapAsync(lisitngController.editListing));
 
 router.put("/:id",isLoggedIn,isOwner,upload.single('listing[image]'),validateListing, wrapAsync(lisitngController.updateListing));
 
 router.delete("/:id",isLoggedIn,isOwner,wrapAsync(lisitngController.destroyListing));
+
+router.get("/:id/book",isLoggedIn,isOwner,wrapAsync(lisitngController.bookListing));
 
 
 module.exports = router;

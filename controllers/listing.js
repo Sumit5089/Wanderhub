@@ -66,3 +66,13 @@ module.exports.index = async(req,res) =>{
     req.flash("success", "Listing Deleted")
     res.redirect(`/listings`);
  }
+
+ module.exports.bookListing = async(req,res) =>{
+   let {id} = req.params;
+   const listing = await Listing.findById(id);
+   if(!listing) {
+     req.flash("error", "Listing you requested does not exist!")
+     res.redirect("/listings")
+   }
+   res.render("./listings/book", {listing});
+}

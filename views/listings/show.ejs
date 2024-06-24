@@ -35,6 +35,11 @@
                     <input type="submit" value="Delete" class="delete-btn">
                     </form>
                 </div>
+                <div class="book-btn mx-3">
+                    <form action="/listings/<%= listing._id %>/book" method="GET">
+                    <input type="submit" value="Book" class="book-btn">
+                    </form>
+                </div>
             </div>
 
         <%  }  %>
