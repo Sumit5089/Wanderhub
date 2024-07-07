@@ -1,58 +1,55 @@
 <% layout("/layouts/boilerplate") %>
 
-<div class="row">
-    <div class="col">
-    <h3><%= listing.title %></h3>
-
-        <div class="card mt-3 listing-card" style="width: 25rem;">
-            <img src="<%= listing.image.url %>" class="card-img-top" alt="image">
-            <div class="card-body mt-2">
-                <p class="card-text mx-2"><b>Owned By:-</b><i>  <%= listing.owner.username %></i></p>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <h3><%= listing.title %></h3>
+            <div class="card mt-3 listing-card">
+                <img src="<%= listing.image.url %>" class="card-img-top" alt="image">
+                <div class="card-body mt-2">
+                    <p class="card-text mx-2"><b>Owned By:-</b><i> <%= listing.owner.username %></i></p>
+                </div>
             </div>
+        </div>
+
+        <div class="col-md-6" id="show-txt">
+            <ul>
+                <p><i class="fa-solid fa-mountain-sun" style="color: red;"></i>&nbsp; <%= listing.title %></p>
+                <p><i class="fa-solid fa-angles-right" style="color: red;"></i>&nbsp;<%= listing.description %></p>
+                <p><i class="fa-solid fa-indian-rupee-sign" style="color: red;"></i>&nbsp;<%= listing.price %></p>
+                <p><i class="fa-solid fa-location-dot" style="color: red;"></i>&nbsp;<%= listing.location %></p>
+                <p><i class="fa-solid fa-earth-americas" style="color: red;"></i>&nbsp;<%= listing.country %></p>
+            </ul>
+            <br>
+
+            <% if(currUser && listing.owner._id.equals(currUser._id)) { %>
+                <div class="show-btns">
+                    <div>
+                        <form action="/listings/<%= listing._id %>/edit" method="GET">
+                            <input type="submit" value="Edit" class="edit-btn btn btn-primary mb-2">
+                        </form>
+                    </div>
+                    <div class="del-btn">
+                        <form action="/listings/<%= listing._id %>?_method=DELETE" method="POST">
+                            <input type="submit" value="Delete" class="delete-btn btn btn-danger mb-2">
+                        </form>
+                    </div>
+                    <div class="book-btn">
+                        <form action="/listings/<%= listing._id %>/book" method="GET">
+                            <input type="submit" value="Book" class="book-btn btn btn-primary mb-2">
+                        </form>
+                    </div>
+                </div>
+            <% } %>
         </div>
     </div>
 
-    <div class="col" id="show-txt">
-            <ul>
-                <p><i class="fa-solid fa-mountain-sun" style="color: red;"></i>&nbsp; <%= listing.title %></p> 
-                <p><i class="fa-solid fa-angles-right" style="color: red;"></i> &nbsp;<%= listing.description %></p>
-                <p><i class="fa-solid fa-indian-rupee-sign"  style="color: red;"></i> &nbsp;<%= listing.price %></p> 
-                <p> <i class="fa-solid fa-location-dot" style="color: red;"></i> &nbsp;<%= listing.location %><p>
-                <p><i class="fa-solid fa-earth-americas" style="color: red;"></i>&nbsp; <%= listing.country %></p>
-            </ul>   
-            <br>
-
-         <% if(currUser && listing.owner._id.equals(currUser._id))  {  %>
-
-            <div class="show-btns">
-                <div>
-                    <form action="/listings/<%= listing._id %>/edit" method="GET">
-                        <input type="submit" value="Edit" class="edit-btn">
-                    </form>
-                </div>
-                <div class="del-btn">
-                    <form action="/listings/<%= listing._id %>?_method=DELETE" method="POST">
-                    <input type="submit" value="Delete" class="delete-btn">
-                    </form>
-                </div>
-                <div class="book-btn mx-3">
-                    <form action="/listings/<%= listing._id %>/book" method="GET">
-                    <input type="submit" value="Book" class="book-btn">
-                    </form>
-                </div>
-            </div>
-
-        <%  }  %>
-
-    </div>
-
-    <div> 
-        <% if(currUser) { %>
-            <hr>
+    <% if(currUser) { %>
+        <hr>
         <h4 class="mt-3">Leave a Review</h4>
-        <form action="/listings/<%= listing.id %>/reviews" method="POST"  class="mb-3 needs-validation" novalidate>
+        <form action="/listings/<%= listing.id %>/reviews" method="POST" class="mb-3 needs-validation" novalidate>
             <label for="rating" class="form-label">Rating</label>
-            <fieldset class="starability-slot"> 
+            <fieldset class="starability-slot">
                 <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="No rating." />
                 <input type="radio" id="first-rate1" name="review[rating]" value="1" />
                 <label for="first-rate1" title="Terrible">1 star</label>
@@ -64,43 +61,41 @@
                 <label for="first-rate4" title="Very good">4 stars</label>
                 <input type="radio" id="first-rate5" name="review[rating]" value="5" />
                 <label for="first-rate5" title="Amazing">5 stars</label>
-              </fieldset>
-            <div>
-                <label for="comment" class="form-label"> Comments</label>
+            </fieldset>
+            <div class="mb-3">
+                <label for="comment" class="form-label">Comments</label>
                 <textarea name="review[comment]" id="comment" cols="30" rows="3" class="form-control" required></textarea>
-                <div class="invalid-feedback">please submit sime comments for review</div>
+                <div class="invalid-feedback">Please submit some comments for the review.</div>
             </div>
-            <button type=submit class="btnx">Submit</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
         </form>
-        <% } %>
-        <hr>
-        <div class="rate">
-            <h5 class="mb-4"><b>All Reviews  &nbsp;<i class="fa-regular fa-comment fa-1x"></i></b></h5>
-       <div class="row" >
-            <% for(review of listing.reviews)  { %>
-                <div class="card col-3 ms-3 mb-3" id="review-box">
+    <% } %>
+
+    <hr>
+    <div class="rate">
+        <h5 class="mb-4"><b>All Reviews&nbsp;<i class="fa-regular fa-comment fa-1x"></i></b></h5>
+        <div class="row">
+            <% for(review of listing.reviews) { %>
+                <div class="card col-md-6 col-lg-4 mb-3" id="review-box">
                     <div class="card-body m-2" id="review-mbox">
                         <h5 class="card-title"><i class="fa-solid fa-user"></i><b> <%= review.author.username %></b></h5>
-                        <p class="starability-result card-text" data-rating="<%= review.rating  %>"></p>
+                        <p class="starability-result card-text" data-rating="<%= review.rating %>"></p>
                         <p class="card-text"><%= review.comment %></p>
-                         <form action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE" method="post">
-                            <button  type="submit" class="btnxx"><i class="fa-solid fa-trash"></i></button>
+                        <form action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE" method="post">
+                            <button type="submit" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
                         </form>
                     </div>
-                    
                 </div>
             <% } %>
-       </div>
         </div>
     </div>
 </div>
-<div class="mt-5">
-<h3 class="m-8 text-center" ><b>Where you'll be</b></h3>
-<div id="map"></div>
-<style>
 
-    #map { height: 400px; width: 800px; margin-top: 40px; margin-left:15%;}
-</style>
+<div class="mt-5">
+    <h3 class="text-center"><b>Where you'll be</b></h3>
+    <div id="map" class="mx-auto mt-3" style="height: 400px; width: 100%; max-width: 800px;"></div>
+</div>
+
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <script>
     var map = L.map('map').setView([51.505, -0.09], 13);
@@ -108,14 +103,12 @@
         attribution: '&copy; Wanderhub'
     }).addTo(map);
 
-// custom icon using font Awesome
     var compassIcon = L.divIcon({
         html: '<i class="fa-solid fa-location-dot fa-2x" style="color: red;"></i>',
         iconSize: [20, 50],
         className: 'custom-icon'
     });
 
-//geocoding for adding city name
     function geocodeCity(cityName) {
         var url = 'https://nominatim.openstreetmap.org/search?format=json&limit=1&q=' + encodeURIComponent(cityName);
         fetch(url)
@@ -133,7 +126,6 @@
             })
             .catch(error => console.error('Error:', error));
     }
-     geocodeCity('<%= listing.location %>');
-</script> 
 
-</div>
+    geocodeCity('<%= listing.location %>');
+</script>

@@ -49,18 +49,18 @@
     </div>
 </div>
 <hr>
-<div class="row row-cols-lg-4 row-cols-md-3 row-cols-sm-1 mt-3">
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 mt-3">
     <% for(let listing of allListings) { %>
         <a href="/listings/<%= listing._id %>" class="listing-link">
-            <div class="card cols listing-card">
+            <div class="card listing-card mb-3">
                 <img src="<%= listing.image.url %>" class="card-img-top" alt="listing_image" style="height:18rem">
                 <div class="card-img-overlay"><i class="fa-solid fa-heart"></i></div>
                 <div class="card-body">
-                <h5 class="card-title poppins-regular mt-2"><b><%= listing.title %></b></h5>
-                <p class="card-text poppins-regular">
-                    &#8377; <%= listing.price.toLocaleString("en-IN") %> / night
-                    <i class="tax-info"> &nbsp; &nbsp;+18% GST</i>
-                </p>
+                    <h5 class="card-title poppins-regular mt-2"><b><%= listing.title %></b></h5>
+                    <p class="card-text poppins-regular">
+                        &#8377; <%= listing.price.toLocaleString("en-IN") %> / night
+                        <i class="tax-info d-none"> &nbsp; &nbsp;+18% GST</i>
+                    </p>
                 </div>
             </div>
         </a>

@@ -274,10 +274,5 @@ padding-left: 1rem;
 }
 
 .book-btn{
-    background-color: rgb(23, 199, 61);
-    border: none;
-    border-radius: 6px;
-    color: white;
-    /* margin-top: 20px;*/
-    padding: 2px;
+    margin-left: 7px ;
 }
