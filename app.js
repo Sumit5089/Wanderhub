@@ -11,7 +11,7 @@ const ejsMate = require('ejs-mate');
 const cookieParser = require('cookie-parser')
 const ExpressError = require('./utils/expresserror.js')
 const session = require('express-session')
-// const MongoStore = require('connect-mongo');
+const MongoStore = require('connect-mongo');
 const flash = require('connect-flash');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
@@ -23,18 +23,20 @@ const User = require('./models/user.js');
 const listingRouter = require('./routes/listing.js');
 const reviewRouter = require('./routes/review.js');
 const userRouter = require('./routes/user.js');
-// const MongoStore = require('connect-mongo');
+const MongoStore = require('connect-mongo');
 
 
-// const DB_URL = process.env.ATLASDB_URL;
+const DB_URL = process.env.ATLASDB_URL;
 
 main()
 .then(() => console.log("connection sucssefull"))
 .catch((err) => console.log(err))
 
 async function main() { 
-    await mongoose.connect("mongodb://localhost:27017/newapp");
+    await mongoose.connect(DB_URL);
 }
+
+// "mongodb://localhost:27017/newapp"
 
 app.set('view engine', 'ejs');
 app.set("views", path.join(__dirname,"views"));
@@ -46,20 +48,20 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname,"public")));
 
 
-// const store = MongoStore.create({
-//   mongoUrl: DB_URL,
-//   crypto: {
-//     secret: "mysupersecretcode"
-//   },
-//   touchAfter: 24 * 3600,
-// });
+const store = MongoStore.create({
+  mongoUrl: DB_URL,
+  crypto: {
+    secret: "mysupersecretcode"
+  },
+  touchAfter: 24 * 3600,
+});
 
-// store.on("error", () => {
-//    console.log("ERROR in MONGO SESSION STORE", err)
-// })
+store.on("error", () => {
+   console.log("ERROR in MONGO SESSION STORE", err)
+})
 
 const sessionOptions = {
-  // store,
+  store,
   secret: "mysupersecretcode",
   resave: false,
   saveUninitialized: true,
