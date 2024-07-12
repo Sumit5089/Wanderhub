@@ -6,12 +6,8 @@ This is my first app.
 
 - [Description](#description)
 - [Installation](#installation)
-- [Usage](#usage)
-- [Dependencies](#dependencies)
-- [Development Dependencies](#development-dependencies)
-- [Author](#author)
-- [License](#license)
-- [Deployment](#deployment)
+- [Author]([#author](https://github.com/Sumit5089))
+- [Deployment]([#deployment](https://wanderhub-etrn.onrender.com ))
 
 ## Description
 
