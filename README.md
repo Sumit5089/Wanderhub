@@ -6,8 +6,8 @@ This is my first app.
 
 - [Description](#description)
 - [Installation](#installation)
-- [Author]([#author](https://github.com/Sumit5089))
-- [Deployment](#(https://wanderhub-etrn.onrender.com ))
+- <a href="https://github.com/Sumit5089"> Author</a>
+- <a href="https://wanderhub-etrn.onrender.com "> Deployment Link </a>
 
 ## Description
 
