@@ -192,11 +192,6 @@
 
 }
 
-.fa-trash{
-    color: #fe424d;
-    font-size: 1.5rem;
-    padding: 5px;
-}
 
 #review-box{
     border-radius: 30px;
@@ -275,4 +270,14 @@ padding-left: 1rem;
 
 .book-btn{
     margin-left: 7px ;
+}
+
+.delete-btn{
+    background-color:#fe424d;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    /* margin-top: 20px;*/
+    padding: 2px;
+    
 }

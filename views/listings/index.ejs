@@ -1,55 +1,134 @@
 <% layout("/layouts/boilerplate") %>
 <br>
-<div class="filters sm-row">
-    <div class="filter col">
-        <div><i class="fa-solid fa-fire"></i></div>
-        <p>Trending</p>
-    </div>
-    <div class="filter col">
-        <div><i class="fa-solid fa-bed"></i></div>
-        <p>Rooms</p>
-    </div>
-    <div class="filter col">
-        <div><i class="fa-solid fa-mountain-city"></i></div>
-        <p>Iconic cities</p>
-    </div>
-    <div class="filter col">
-        <div><i class="fa-brands fa-fort-awesome"></i></div>
-        <p>Castles</p>
-    </div>
-    <div class="filter col">
-        <div><i class="fa-solid fa-mountain-sun"></i></div>
-        <p>Mountains</p>
-    </div>
-    <div class="filter col">
-        <div><i class="fa-regular fa-snowflake"></i></div>
-        <p>Arctic</p>
-    </div>
-    <div class="filter col">
-        <div><i class="fa-solid fa-cow"></i></div>
-        <p>Farms</p>
-    </div>
-    <div class="filter col">
-        <div><i class="fa-solid fa-tent"></i></div>
-        <p>Camping</p>
-    </div>
-    <div class="filter col">
-        <div><i class="fa-solid fa-landmark-dome"></i></div>
-        <p>Domes</p>
-    </div>
-    <div class="filter col">
-        <div><i class="fa-solid fa-ship"></i></div>
-        <p>Boats</p>
-    </div>
-    <div class="tax-toggle mb-2">
-        <div class="form-check-reverse form-switch">
+
+<style>
+    /* Scope the styles to the filter-section class */
+    .filter-section {
+      display: flex;
+      justify-content: space-around;
+    }
+    .filter-section #filters-wrapper {
+      overflow-x:auto;
+      white-space: nowrap;
+      padding-left: 1rem;
+      box-sizing: border-box;
+      display: flex;
+    }
+    .filter-section #filters {
+      display: inline-flex;
+      justify-content: space-evenly;
+      align-items: start;
+    }
+    .filter-section .filters {
+      height: 7vh;
+      width: 8vw;
+      min-width: 100px;
+      text-align: center;
+      display: inline-block;
+      opacity: 0.8;
+    }
+    .filter-section .filters i {
+      display: block;
+      font-size: 1.5rem;
+    }
+  
+  
+    /* Scrollbar styling */
+    .filter-section #filters-wrapper::-webkit-scrollbar {
+      height: 2px;
+    }
+    .filter-section #filters-wrapper::-webkit-scrollbar-thumb {
+      background : #888;
+      border-radius: 2px;
+    }
+    .filter-section #filters-wrapper::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+    .color{
+      color : #e6657f;
+    }
+    .filter-section {
+      display: flex ;
+    }
+    .filters:hover{
+      opacity: 1;
+      cursor: pointer;
+    }
+    .switch{
+      border: 1px solid rgb(85, 81, 81);
+      border-radius: 1rem;
+      padding: 0.8rem;
+      font-size: medium;
+    }
+    .tax-info {
+        display: none;
+    }
+  </style>
+  
+  <div class="filter-section mt-3" >
+    <div id="filters-wrapper" >
+      <div id="filters" >
+        <div class="filters mb-2">
+          <i class="fa-solid fa-water-ladder color"></i>
+          <h6>Amazing Pools</h6>
+        </div>
+  
+        <div class="filters">
+          <i class="fa-solid fa-snowflake color"></i>
+          <h6>Arctic</h6>
+        </div>
+  
+        <div class="filters">
+          <i class="fa-solid fa-mountain-city color"></i>
+          <h6>Hillstations</h6>
+        </div>
+  
+        <div class="filters">
+          <i class="fa-solid fa-city color"></i>
+          <h6>Mansion</h6>
+        </div>
+  
+        <div class="filters">
+          <i class="fa-solid fa-umbrella-beach color"></i>
+          <h6>Islands</h6>
+        </div>
+  
+        <div class="filters">
+          <i class="fa-solid fa-place-of-worship color"></i>
+          <h6>Worship</h6>
+        </div>
+  
+        <div class="filters">
+          <i class="fa-brands fa-fort-awesome color"></i>
+          <h6>Forts</h6>
+        </div>
+  
+        <div class="filters">
+          <i class="fa-solid fa-house-flood-water color"></i>
+          <h6>Beachfront</h6>
+        </div>
+  
+        <div class="filters">
+          <i class="fa-solid fa-tractor color"></i>
+          <h6>Farms</h6>
+        </div>
+       
+        <div class="filters">
+          <i class="fa-solid fa-person-booth color"></i>
+          <h6>Rooms</h6>
+        </div>
+      </div>
+      <!-- <hr/> -->
+        </div>
+        <!-- <div class="switch">
+          <div class="form-check form-switch form-check-reverse">
             <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-            <label class="form-check-label" for="flexSwitchCheckDefault">Display Total Of Taxes</label>
-          </div>
-    </div>
-</div>
+            <label class="form-check-label" for="flexSwitchCheckDefault">Total before Tax</label>
+          </div> -->
+      </div> 
+  </div>
 <hr>
-<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 mt-3">
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 mt-3 p-5">
     <% for(let listing of allListings) { %>
         <a href="/listings/<%= listing._id %>" class="listing-link">
             <div class="card listing-card mb-3">
