@@ -93,11 +93,6 @@ app.use("/listings/:id/reviews", reviewRouter )
 app.use("/", userRouter)
 
 
- //profile route
- app.get("/profile",(req,res) =>{
-   res.render("./listings/profile");
-});
-
  app.all("*", (req,res,next) =>{
    next(new ExpressError(404, "page not found"));
  });
