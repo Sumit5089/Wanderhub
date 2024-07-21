@@ -17,6 +17,8 @@ const listingSchema = new mongoose.Schema({
     location: String,
     
     country: String,
+
+    type: String,
     reviews:[
         {
             type:mongoose.SchemaTypes.ObjectId,

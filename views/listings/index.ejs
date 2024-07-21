@@ -2,131 +2,111 @@
 <br>
 
 <style>
-    /* Scope the styles to the filter-section class */
     .filter-section {
-      display: flex;
-      justify-content: space-around;
+        display: flex;
+        justify-content: space-around;
     }
     .filter-section #filters-wrapper {
-      overflow-x:auto;
-      white-space: nowrap;
-      padding-left: 1rem;
-      box-sizing: border-box;
-      display: flex;
+        overflow-x: auto;
+        white-space: nowrap;
+        padding-left: 1rem;
+        box-sizing: border-box;
+        display: flex;
     }
     .filter-section #filters {
-      display: inline-flex;
-      justify-content: space-evenly;
-      align-items: start;
+        display: inline-flex;
+        justify-content: space-evenly;
+        align-items: start;
     }
     .filter-section .filters {
-      height: 7vh;
-      width: 8vw;
-      min-width: 100px;
-      text-align: center;
-      display: inline-block;
-      opacity: 0.8;
+        height: 7vh;
+        width: 8vw;
+        min-width: 100px;
+        text-align: center;
+        display: inline-block;
+        opacity: 0.8;
     }
     .filter-section .filters i {
-      display: block;
-      font-size: 1.5rem;
+        display: block;
+        font-size: 1.5rem;
     }
-  
-  
-    /* Scrollbar styling */
     .filter-section #filters-wrapper::-webkit-scrollbar {
-      height: 2px;
+        height: 2px;
     }
     .filter-section #filters-wrapper::-webkit-scrollbar-thumb {
-      background : #888;
-      border-radius: 2px;
+        background: #888;
+        border-radius: 2px;
     }
     .filter-section #filters-wrapper::-webkit-scrollbar-thumb:hover {
-      background: #555;
+        background: #555;
     }
-    .color{
-      color : #e6657f;
+    .color {
+        color: #e6657f;
     }
     .filter-section {
-      display: flex ;
+        display: flex;
     }
-    .filters:hover{
-      opacity: 1;
-      cursor: pointer;
+    .filters:hover {
+        opacity: 1;
+        cursor: pointer;
     }
-    .switch{
-      border: 1px solid rgb(85, 81, 81);
-      border-radius: 1rem;
-      padding: 0.8rem;
-      font-size: medium;
+    .switch {
+        border: 1px solid rgb(85, 81, 81);
+        border-radius: 1rem;
+        padding: 0.8rem;
+        font-size: medium;
     }
     .tax-info {
         display: none;
     }
-  </style>
-  
-  <div class="filter-section" >
-    <div id="filters-wrapper" >
-      <div id="filters" >
-        <div class="filters mb-2">
-          <i class="fa-solid fa-water-ladder color"></i>
-          <h6>Amazing Pools</h6>
+</style>
+
+<div class="filter-section">
+    <div id="filters-wrapper">
+        <div id="filters">
+            <div class="filters mb-2" onclick="filterListings('Amazing Pools')">
+                <i class="fa-solid fa-water-ladder color"></i>
+                <h6>Amazing Pools</h6>
+            </div>
+            <div class="filters" onclick="filterListings('Arctic')">
+                <i class="fa-solid fa-snowflake color"></i>
+                <h6>Arctic</h6>
+            </div>
+            <div class="filters" onclick="filterListings('Hillstations')">
+                <i class="fa-solid fa-mountain-city color"></i>
+                <h6>Hillstations</h6>
+            </div>
+            <div class="filters" onclick="filterListings('Mansion')">
+                <i class="fa-solid fa-city color"></i>
+                <h6>Mansion</h6>
+            </div>
+            <div class="filters" onclick="filterListings('Islands')">
+                <i class="fa-solid fa-umbrella-beach color"></i>
+                <h6>Islands</h6>
+            </div>
+            <div class="filters" onclick="filterListings('Worship')">
+                <i class="fa-solid fa-place-of-worship color"></i>
+                <h6>Worship</h6>
+            </div>
+            <div class="filters" onclick="filterListings('Forts')">
+                <i class="fa-brands fa-fort-awesome color"></i>
+                <h6>Forts</h6>
+            </div>
+            <div class="filters" onclick="filterListings('Beachfront')">
+                <i class="fa-solid fa-house-flood-water color"></i>
+                <h6>Beachfront</h6>
+            </div>
+            <div class="filters" onclick="filterListings('Farms')">
+                <i class="fa-solid fa-tractor color"></i>
+                <h6>Farms</h6>
+            </div>
+            <div class="filters" onclick="filterListings('Rooms')">
+                <i class="fa-solid fa-person-booth color"></i>
+                <h6>Rooms</h6>
+            </div>
         </div>
-  
-        <div class="filters">
-          <i class="fa-solid fa-snowflake color"></i>
-          <h6>Arctic</h6>
-        </div>
-  
-        <div class="filters">
-          <i class="fa-solid fa-mountain-city color"></i>
-          <h6>Hillstations</h6>
-        </div>
-  
-        <div class="filters">
-          <i class="fa-solid fa-city color"></i>
-          <h6>Mansion</h6>
-        </div>
-  
-        <div class="filters">
-          <i class="fa-solid fa-umbrella-beach color"></i>
-          <h6>Islands</h6>
-        </div>
-  
-        <div class="filters">
-          <i class="fa-solid fa-place-of-worship color"></i>
-          <h6>Worship</h6>
-        </div>
-  
-        <div class="filters">
-          <i class="fa-brands fa-fort-awesome color"></i>
-          <h6>Forts</h6>
-        </div>
-  
-        <div class="filters">
-          <i class="fa-solid fa-house-flood-water color"></i>
-          <h6>Beachfront</h6>
-        </div>
-  
-        <div class="filters">
-          <i class="fa-solid fa-tractor color"></i>
-          <h6>Farms</h6>
-        </div>
-       
-        <div class="filters">
-          <i class="fa-solid fa-person-booth color"></i>
-          <h6>Rooms</h6>
-        </div>
-      </div>
-      <!-- <hr/> -->
-        </div>
-        <!-- <div class="switch">
-          <div class="form-check form-switch form-check-reverse">
-            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-            <label class="form-check-label" for="flexSwitchCheckDefault">Total before Tax</label>
-          </div> -->
-      </div> 
-  </div>
+    </div>
+</div>
 <hr>
 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 mt-3 p-5">
     <% for(let listing of allListings) { %>
@@ -145,14 +125,18 @@
         </a>
     <% } %>
 </div>
-            
+
 <script>
+    function filterListings(type) {
+        window.location.href = `/listings?type=${type}`;
+    }
+
     let taxSwitch = document.getElementById('flexSwitchCheckDefault');
     taxSwitch.addEventListener('click', () =>{
         let taxinfo = document.getElementsByClassName('tax-info');
-        for(info of taxinfo) {
-            if(info.style.display != 'inline'){
-            info.style.display = 'inline';
+        for (info of taxinfo) {
+            if (info.style.display != 'inline'){
+                info.style.display = 'inline';
             } else {
                 info.style.display = 'none';
             }

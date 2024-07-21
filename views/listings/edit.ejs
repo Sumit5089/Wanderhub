@@ -1,36 +1,47 @@
 <% layout("/layouts/boilerplate") %>
 
-        <h3>Edit your Listing</h3>
-        <form  method="POST" action="/listings/<%= listing._id %>?_method=PUT" class="needs-validation" novalidate enctype="multipart/form-data">
-
-            
-            <div>
-                <label for="title" class="form-label">Title</label>
-                <input type="text" name="listing[title]" value="<%= listing.title %>" class="form-control" required>
-            </div>
-            <div>
-                <label for="description" class="form-label">Description</label>
-                <textarea name="listing[description]" class="form-control" required><%= listing.description %></textarea>
-            </div>     
-            <div>
-                <label for="image" class="form-label">Upload New Img</label>
-                <input type="file" name="listing[image]" class="form-control">
-            </div>
-            <div class="row">
-                <div class="col-md-4">
-                    <label for="price" class="form-label">Price</label>
-                    <input type="text" name="listing[price]" value="<%= listing.price %>" class="form-control" required>
-                </div>       
-                <div class="col-md-4">
-                    <label for="location" class="form-label">Location</label>
-                    <input type="text" name="listing[location]" value="<%= listing.location %>" class="form-control" required>
-                </div>
-                <div class="col-md-4">
-                    <label for="country" class="form-label">Country</label>
-                    <input type="text" name="listing[country]" value="<%= listing.country %>" class="form-control" required>
-                </div>
-            </div>
-            
-            <input type="submit" value="Submit" class="btnx">
-        </form>
-    
+<h3>Edit your Listing</h3>
+<form method="POST" action="/listings/<%= listing._id %>?_method=PUT" class="needs-validation" novalidate enctype="multipart/form-data">
+    <div>
+        <label for="title" class="form-label">Title</label>
+        <input type="text" name="listing[title]" value="<%= listing.title %>" class="form-control" required>
+    </div>
+    <div>
+        <label for="description" class="form-label">Description</label>
+        <textarea name="listing[description]" class="form-control" required><%= listing.description %></textarea>
+    </div>
+    <div>
+        <label for="image" class="form-label">Upload New Img</label>
+        <input type="file" name="listing[image]" class="form-control">
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <label for="price" class="form-label">Price</label>
+            <input type="text" name="listing[price]" value="<%= listing.price %>" class="form-control" required>
+        </div>
+        <div class="col-md-4">
+            <label for="location" class="form-label">Location</label>
+            <input type="text" name="listing[location]" value="<%= listing.location %>" class="form-control" required>
+        </div>
+        <div class="col-md-4">
+            <label for="country" class="form-label">Country</label>
+            <input type="text" name="listing[country]" value="<%= listing.country %>" class="form-control" required>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <label for="type" class="form-label">Category</label>
+            <select name="listing[type]" class="form-control" required>
+                <option value="">Select a category</option>
+                <option value="Amazingpools" <%= listing.type === "Amazingpools" ? "selected" : "" %>>Amazing Pools</option>
+                <option value="Arctic" <%= listing.type === "Arctic" ? "selected" : "" %>>Arctic</option>
+                <option value="Hillstations" <%= listing.type === "Hillstations" ? "selected" : "" %>>Hillstations</option>
+                <option value="Mansion" <%= listing.type === "Mansion" ? "selected" : "" %>>Mansion</option>
+                <option value="Islands" <%= listing.type === "Islands" ? "selected" : "" %>>Islands</option>
+                <!-- Add more options as needed -->
+            </select>
+            <div class="invalid-feedback">required</div>
+        </div>
+    </div>
+    <input type="submit" value="Submit" class="btnx">
+</form>

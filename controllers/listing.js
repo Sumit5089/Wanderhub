@@ -1,9 +1,14 @@
 const Listing = require('../models/listings')
 
-module.exports.index = async(req,res) =>{
-    const allListings = await Listing.find({});
-    res.render("./listings/index", {allListings});
- };
+module.exports.index = async (req, res) => {
+  const { type } = req.query;
+  let filter = {};
+  if (type) {
+      filter.type = type;
+  }
+  const allListings = await Listing.find(filter);
+  res.render("./listings/index", { allListings });
+};
 
  module.exports.renderNewForm =  (req,res) =>{
     res.render("./listings/new");
@@ -49,7 +54,7 @@ module.exports.index = async(req,res) =>{
 
  module.exports.updateListing = async(req,res) =>{
     let {id} = req.params;
-    let listing = await Listing.findByIdAndUpdate(id, {...req.body.listing});
+    let listing = await Listing.findByIdAndUpdate(id, {...req.body.listing });
     if(typeof req.file !== "undefined") {
       let url = req.file.path;
       let filename = req.file.filename;
