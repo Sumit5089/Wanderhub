@@ -33,11 +33,15 @@
             <label for="type" class="form-label">Category</label>
             <select name="listing[type]" class="form-control" required>
                 <option value="">Select a category</option>
-                <option value="Amazingpools" <%= listing.type === "Amazingpools" ? "selected" : "" %>>Amazing Pools</option>
                 <option value="Arctic" <%= listing.type === "Arctic" ? "selected" : "" %>>Arctic</option>
                 <option value="Hillstations" <%= listing.type === "Hillstations" ? "selected" : "" %>>Hillstations</option>
                 <option value="Mansion" <%= listing.type === "Mansion" ? "selected" : "" %>>Mansion</option>
                 <option value="Islands" <%= listing.type === "Islands" ? "selected" : "" %>>Islands</option>
+                <option value="Worship" <%= listing.type === "Worship" ? "selected" : "" %>>Worship</option>
+                <option value="Forts" <%= listing.type === "Forts" ? "selected" : "" %>>Forts</option>
+                <option value="Beachfront" <%= listing.type === "Beachfront" ? "selected" : "" %>>Beachfront</option>
+                <option value="Farms" <%= listing.type === "Farms" ? "selected" : "" %>>Farms</option>
+                <option value="Rooms" <%= listing.type === "Rooms" ? "selected" : "" %>>Rooms</option>
                 <!-- Add more options as needed -->
             </select>
             <div class="invalid-feedback">required</div>
