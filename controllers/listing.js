@@ -1,5 +1,22 @@
 const Listing = require('../models/listings')
 
+
+module.exports.searchListings = async (req, res) => {
+  const { q } = req.query;
+  const regex = new RegExp(q, 'i'); // 'i' makes it case insensitive
+  const searchResults = await Listing.find({
+      $or: [
+          { title: regex },
+          { description: regex },
+          { location: regex },
+          { country: regex },
+          { type: regex } // Add any other fields you want to search in
+      ]
+  });
+  res.render('./listings/index', { allListings: searchResults });
+};
+
+
 module.exports.index = async (req, res) => {
   const { type } = req.query;
   let filter = {};

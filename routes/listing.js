@@ -14,6 +14,8 @@ const lisitngController = require('../controllers/listing.js')
 
 router.get("/", wrapAsync(lisitngController.index));
 
+router.get("/search", wrapAsync(lisitngController.searchListings));
+
 router.get("/new",isLoggedIn, lisitngController.renderNewForm);
 
 router.get("/:id" , wrapAsync(lisitngController.showListing));
