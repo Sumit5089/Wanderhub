@@ -25,17 +25,17 @@ const reviewRouter = require('./routes/review.js');
 const userRouter = require('./routes/user.js');
 
 
-const DB_URL = process.env.ATLASDB_URL;
-
+// const DB_URL = process.env.ATLASDB_URL;
+const uri = "mongodb://localhost:27017/newapp"
 main()
 .then(() => console.log("connection sucssefull"))
 .catch((err) => console.log(err))
 
 async function main() { 
-    await mongoose.connect(DB_URL);
+    await mongoose.connect(uri);
 }
 
-// "mongodb://localhost:27017/newapp"
+
 
 app.set('view engine', 'ejs');
 app.set("views", path.join(__dirname,"views"));
@@ -47,20 +47,20 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname,"public")));
 
 
-const store = MongoStore.create({
-  mongoUrl: DB_URL,
-  crypto: {
-    secret: process.env.SECRET,
-  },
-  touchAfter: 24 * 3600,
-});
+// const store = MongoStore.create({
+//   mongoUrl: DB_URL,
+//   crypto: {
+//     secret: process.env.SECRET,
+//   },
+//   touchAfter: 24 * 3600,
+// });
 
-store.on("error", () => {
-   console.log("ERROR in MONGO SESSION STORE", err)
-})
+// store.on("error", () => {
+//    console.log("ERROR in MONGO SESSION STORE", err)
+// })
 
 const sessionOptions = {
-  store,
+  // store,
   secret: process.env.SECRET,
   resave: false,
   saveUninitialized: true,
@@ -91,7 +91,6 @@ app.use((req,res,next) =>{
 app.use("/listings", listingRouter)
 app.use("/listings/:id/reviews", reviewRouter )
 app.use("/", userRouter)
-
 
  app.all("*", (req,res,next) =>{
    next(new ExpressError(404, "page not found"));

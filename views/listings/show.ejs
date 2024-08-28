@@ -5,10 +5,12 @@
         <div class="col-md-6">
             <h3><%= listing.title %></h3>
             <div class="card mt-3 listing-card">
-                <img src="<%= listing.image.url %>" class="card-img-top" alt="image">
-                <div class="card-body mt-2">
-                    <p class="card-text mx-2"><b>Owned By:-</b><i> <%= listing.owner.username %></i></p>
-                </div>
+                <img src="<%= listing.image.url %>" class="card-img-top" alt="image" height="350px" width="350px">
+                    <!-- <p class="card-text mx-2"><b>Owned By:-</b><i> <%= listing.owner.username %></i></p> -->
+                    <div class="card mt-4 p-3 host-card shadow-sm">
+                        <h5 class="host-name mb-1">Hosted by <%= listing.owner.username %></h5>
+                        <p class="host-details text-muted mb-0">Superhost · 8 months hosting</p>
+                    </div>  
             </div>
         </div>
 
@@ -129,3 +131,157 @@
 
     geocodeCity('<%= listing.location %>');
 </script>
+
+<div class="host-profile">
+    <h2>Meet your Host</h2>
+    <div class="host-card">
+        <div class="host-details-left">
+            <img src="<%= listing.owner.image || 'path/to/default-image.jpg' %>" alt="Host Image" class="host-image">
+            <div class="host-stats">
+                <p><strong>11</strong><br>Reviews</p>
+                <p><strong>4.91 <span class="star">&#9733;</span></strong><br>Rating</p>
+                <p><strong>8</strong><br>Months hosting</p>
+            </div>
+        </div>
+        <div class="host-details-right">
+            <h3 class="host-name">Viganesh</h3>
+            <p class="superhost-label">Superhost</p>
+            <p class="host-description">Viganesh is a Superhost</p>
+            <p class="host-bio">Superhosts are experienced, highly rated hosts who are committed to providing great stays for guests.</p>
+            <h4>Host details</h4>
+            <p class="host-response">Response rate: 100%<br>Responds within a few hours</p>
+            <button class="message-host-btn">Message Host</button>
+        </div>
+    </div>
+    <div class="host-languages">
+        <p><i class="fa fa-globe"></i> Speaks German, English and Hindi</p>
+        <p><i class="fa fa-paw"></i> Pets: JD Jack Daniels Lab</p>
+        <a href="#" class="show-more">Show more &#8250;</a>
+    </div>
+    <p class="payment-warning">To protect your payment, never transfer money or communicate outside of the Airbnb website or app.</p>
+</div>
+<style>
+   /* Main Host Profile Container */
+.host-profile {
+    font-family: Arial, sans-serif;
+    color: #333;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Title Styling */
+.host-profile h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Host Card Container */
+.host-card {
+    display: flex;
+    border: 1px solid #e6e6e6;
+    border-radius: 12px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Left Side (Image and Stats) */
+.host-details-left {
+    text-align: center;
+    margin-right: 20px;
+}
+
+.host-image {
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+}
+
+.host-stats p {
+    font-size: 16px;
+    margin: 10px 0;
+}
+
+.host-stats .star {
+    color: #ff385c;
+}
+
+/* Right Side (Details) */
+.host-details-right {
+    flex-grow: 1;
+}
+
+.host-name {
+    font-size: 28px;
+    margin: 0;
+}
+
+.superhost-label {
+    color: #ff385c;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.host-description {
+    font-weight: bold;
+}
+
+.host-bio, .host-response {
+    margin: 10px 0;
+}
+
+.message-host-btn {
+    background-color: #000;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+.message-host-btn:hover {
+    background-color: #333;
+}
+
+/* Host Languages and Additional Info */
+.host-languages {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.host-languages p {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+}
+
+.fa-globe, .fa-paw {
+    margin-right: 8px;
+}
+
+.show-more {
+    color: #ff385c;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 10px;
+    display: inline-block;
+}
+
+.show-more:hover {
+    text-decoration: underline;
+}
+
+/* Payment Warning */
+.payment-warning {
+    font-size: 14px;
+    color: #717171;
+    margin-top: 20px;
+}
+
+        
+</style>
+    
