@@ -17,6 +17,15 @@ module.exports.searchListings = async (req, res) => {
 };
 
 
+module.exports.renderMessageForm = async (req, res) => {
+  const listing = await Listing.findById(req.params.id).populate('owner');
+  if (!listing) {
+      req.flash('error', 'Listing not found');
+      return res.redirect('/listings');
+  }
+  res.render('./listings/messageHost', { listing });
+};
+
 module.exports.index = async (req, res) => {
   const { type } = req.query;
   let filter = {};

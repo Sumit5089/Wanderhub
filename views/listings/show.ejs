@@ -138,19 +138,24 @@
         <div class="host-details-left">
             <img src="<%= listing.owner.image || 'path/to/default-image.jpg' %>" alt="Host Image" class="host-image">
             <div class="host-stats">
-                <p><strong>11</strong><br>Reviews</p>
-                <p><strong>4.91 <span class="star">&#9733;</span></strong><br>Rating</p>
+                <p><strong><%= listing.totalReviews %></strong><br>Reviews</p>
+                <p><strong><%= listing.avgRating.toFixed(2) %> <span class="star">&#9733;</span></strong><br>Rating</p>
                 <p><strong>8</strong><br>Months hosting</p>
             </div>
+            
         </div>
         <div class="host-details-right">
-            <h3 class="host-name">Viganesh</h3>
+            <h3 class="host-name"><%= listing.owner.username%></h3>
             <p class="superhost-label">Superhost</p>
-            <p class="host-description">Viganesh is a Superhost</p>
+            <p class="host-description"><%= listing.owner.username%> is a Superhost</p>
             <p class="host-bio">Superhosts are experienced, highly rated hosts who are committed to providing great stays for guests.</p>
             <h4>Host details</h4>
             <p class="host-response">Response rate: 100%<br>Responds within a few hours</p>
-            <button class="message-host-btn">Message Host</button>
+            <!-- Updated button in show.ejs -->
+            <form action="/listings/<%= listing._id %>/message" method="GET">
+                <button type="submit" class="message-host-btn">Message Host</button>
+            </form>
+
         </div>
     </div>
     <div class="host-languages">
